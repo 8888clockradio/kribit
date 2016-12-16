@@ -1,11 +1,20 @@
 global proc procWithOptionalArgs( string $argString ) {
 string $temp[];
 $temp = `polyNormal -nm 4 $argString`;
-$roto = `duplicate $temp termEnd`;
+$roto = `duplicate $temp`;
 $output = `polyTriangulate -ch 1 -name $roto`;
+ $minx = getAttr ($output + ".boundingBoxMinX");
+    $maxx = getAttr ($output + ".boundingBoxMaxX");
+    $miny = getAttr ($output + ".boundingBoxMinY");
+    $maxy = getAttr ($output + ".boundingBoxMaxY");
+    $minz = getAttr ($output + ".boundingBoxMinZ");
+    $maxz = getAttr ($output + ".boundingBoxMaxZ");
 
-$new = "polyCube -subdivisionsX 48 -subdivisionsY 48 -height " + `print $output.getAttr("boundingBoxMinY") * 1.35` + " -depth " + `print $output.getAttr("boundingBoxMinZ") * 1.35` + " -width " + `print $output.getAttr("boundingBoxMinX") * 1.35`;
-};
+    $x = $maxx - $minx;
+    $y = $maxy - $miny;
+    $z = $maxz - $minz;
+$new = `polyCube -w $x -h $y -d $z -sx 1 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -ch 1`;
+} 
 
 /*window -t "Inverse" -w 250 -h 100 myWin;
 	columnLayout -adj true;
