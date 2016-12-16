@@ -1,9 +1,8 @@
-//so basically, you can define your procs like this:
 global proc procWithOptionalArgs( string $argString ) {
 string $temp[];
-$temp = `polyNormal -nm 4`;
-$output = `polyTriangulate -ch 1 -name $temp`
-}
+$temp = `polyNormal -nm 4 $argString`;
+$output = `polyTriangulate -ch 1 -name $temp`;
+};
 
 /*window -t "Inverse" -w 250 -h 100 myWin;
 	columnLayout -adj true;
