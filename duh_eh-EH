@@ -1,11 +1,11 @@
 global proc procWithOptionalArgs( string $argString ) {
 $temp = `polyNormal -nm 4 $argString`;
- float $minx = `getAttr ($temp + ".boundingBox.boundingBoxMinX")`;
-    float $maxx = `getAttr ($temp + ".boundingBox.boundingBoxMaxX")`;
-    float $miny = `getAttr ($temp + ".boundingBox.boundingBoxMinY")`;
-    float $maxy = `getAttr ($temp + ".boundingBox.boundingBoxMaxY")`;
-    float $minz = `getAttr ($temp + ".boundingBox.boundingBoxMinZ")`;
-    float $maxz = `getAttr ($temp + ".boundingBox.boundingBoxMaxZ")`;
+ 	float $minx = `getAttr ($temp[0] + ".boundingBox.boundingBoxMinX")`;
+    float $maxx = `getAttr ($temp[0] + ".boundingBox.boundingBoxMaxX")`;
+    float $miny = `getAttr ($temp[0] + ".boundingBox.boundingBoxMinY")`;
+    float $maxy = `getAttr ($temp[0] + ".boundingBox.boundingBoxMaxY")`;
+    float $minz = `getAttr ($temp[0] + ".boundingBox.boundingBoxMinZ")`;
+    float $maxz = `getAttr ($temp[0] + ".boundingBox.boundingBoxMaxZ")`;
 
     float $x = $maxx - $minx;
     float $y = $maxy - $miny;
