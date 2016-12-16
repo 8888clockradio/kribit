@@ -1,7 +1,33 @@
+polyNormal -nm 4
+
+
  //This script snaps a vertex to the closest vertex on a reference mesh. 
  //written by Ben Bathen March 11, 2006
  //www.benbathen.com
 
+
+string $sel[] = ls -sl;
+for ( $each in $sel )
+{
+float $minX = getAttr ( $each + ".boundingBoxMinX" );
+float $maxX = getAttr ( $each + ".boundingBoxMaxX" );
+float $minY = getAttr ( $each + ".boundingBoxMinY" );
+float $maxY = getAttr ( $each + ".boundingBoxMaxY" );
+float $minZ = getAttr ( $each + ".boundingBoxMinZ" );
+float $maxZ = getAttr ( $each + ".boundingBoxMaxZ" );
+
+float $xLen = ( $maxX - $minX );
+float $yLen = ( $maxY - $minY );
+float $zLen = ( $maxZ - $minZ );
+
+float $vol = ( $xLen * $yLen * $zLen );
+
+pickWalk -d down;
+
+$rigid=pickWalk -d right;
+
+eval ( "setAttr " + $rigid[0] + ".mass " + $vol);
+}; 
 
 
  global proc bb_snapToClosestVert ()
