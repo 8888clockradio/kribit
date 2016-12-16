@@ -4,7 +4,7 @@ $temp = `polyNormal -nm 4 $argString`;
 $roto = `duplicate $temp termEnd`;
 $output = `polyTriangulate -ch 1 -name $roto`;
 
-$new = `polyCube -subdivisionsX 48 -subdivivionsY 48 -height `print $output.getAttr("boundingBoxMinY") * 1.35` -depth` `print $output.getAttr("boundingBoxMinZ") * 1.35` -width `print $output.getAttr("boundingBoxMinX") * 1.35`;
+$new = `polyCube -subdivisionsX 48 -subdivisionsY 48 -height` + `print $output.getAttr("boundingBoxMinY") * 1.35` + `-depth` + `print $output.getAttr("boundingBoxMinZ") * 1.35` + `-width` + `print $output.getAttr("boundingBoxMinX") * 1.35`;
 };
 
 /*window -t "Inverse" -w 250 -h 100 myWin;
