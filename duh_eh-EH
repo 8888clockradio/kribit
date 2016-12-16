@@ -1,13 +1,11 @@
 global proc procWithOptionalArgs( string $argString ) {
 $temp = `polyNormal -nm 4 $argString`;
-$roto = `duplicate $temp`;
-$output = `polyTriangulate -ch 1 -name $roto`;
- float $minx = getAttr ($output + ".boundingBoxMinX");
-    float $maxx = getAttr ($output + ".boundingBoxMaxX");
-    float $miny = getAttr ($output + ".boundingBoxMinY");
-    float $maxy = getAttr ($output + ".boundingBoxMaxY");
-    float $minz = getAttr ($output + ".boundingBoxMinZ");
-    float $maxz = getAttr ($output + ".boundingBoxMaxZ");
+ float $minx = `getAttr ($temp + ".boundingBox.boundingBoxMinX")`;
+    float $maxx = `getAttr ($temp + ".boundingBox.boundingBoxMaxX")`;
+    float $miny = `getAttr ($temp + ".boundingBox.boundingBoxMinY")`;
+    float $maxy = `getAttr ($temp + ".boundingBox.boundingBoxMaxY")`;
+    float $minz = `getAttr ($temp + ".boundingBox.boundingBoxMinZ")`;
+    float $maxz = `getAttr ($temp + ".boundingBox.boundingBoxMaxZ")`;
 
     float $x = $maxx - $minx;
     float $y = $maxy - $miny;
