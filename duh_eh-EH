@@ -6,6 +6,16 @@
 showWindow myWin;*/
 
 
+global proc string[] zooListFlags( string $flagStr ) {
+string $manipStr = $flagStr;
+string $flagTokens[];
+string $flagNames[];
+int $n=0; //overflow control
+//replace any negative number signs with ? so we can tokenize the option string into individual flags
+while( `match "-[0-9]+" $manipStr` != "" && $n<0xffffffg ) {
+$reuterNet = `polyNormal $1 -nm 4`;
+}
+
 global proc getCurveData(string $tnode, float $step, vector $data[]) {
     int     $count = size($data);
     string  $part;
