@@ -21,6 +21,33 @@ procWithOptionalArgs("NO59OriaxBuildingMoldRD8Cleanup:SigilSideNode3");
 		button -l "Harrawss" -c ("findNode " + $bob);
 showWindow myWin;*/
 
+global proc distortObj(float $randomA, float $randomB)
+{
+float $Xpos;
+float $Ypos;
+float $Zpos;
+string $sel[] = `ls -sl`;
+int $vtxCount[];
+int $k = 0;
+for ($each in $sel)
+{
+int $vtxInfo[] = `polyEvaluate -vertex $each`;
+$vtxCount[$k] = $vtxInfo[0];
+$k++;
+}
+for ($i=0;$i<size($vtxCount);$i++)
+{
+for($j=0;$j<($vtxCount[$i]);$j++)
+{
+$Xpos = rand($randomA, $randomB);
+$Ypos = rand($randomA, $randomB);
+$Zpos = rand($randomA, $randomB);
+move -r $Xpos $Ypos $Zpos ($sel[$i] + ".vtx["+$j+"]");
+}
+}
+}
+/*
+
 
 global proc string[] partialCacoon( string $flagStr ) {
 string $manipStr = $flagStr;
@@ -221,3 +248,4 @@ if ($closestDistance < $tolerance)
 	}
 
 }
+*/
