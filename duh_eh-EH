@@ -1,6 +1,7 @@
 //Copyright 2016 George Rosar under Creative Commons Attribution-NonCommercial 4.0 International
 global proc procWithOptionalArgs( string $argString ) {
-$temp = `polyNormal -nm 4 $argString`;
+//$temp = `polyNormal -nm 4 $argString`;
+$temp = `ls -l ($argString)`;
  	float $minx = `getAttr ($temp[0] + ".boundingBox.boundingBoxMinX")`;
     float $maxx = `getAttr ($temp[0] + ".boundingBox.boundingBoxMaxX")`;
     float $miny = `getAttr ($temp[0] + ".boundingBox.boundingBoxMinY")`;
@@ -8,9 +9,11 @@ $temp = `polyNormal -nm 4 $argString`;
     float $minz = `getAttr ($temp[0] + ".boundingBox.boundingBoxMinZ")`;
     float $maxz = `getAttr ($temp[0] + ".boundingBox.boundingBoxMaxZ")`;
 
-    float $x = $maxx - $minx;
-    float $y = $maxy - $miny;
-    float $z = $maxz - $minz;
+    float $x = ($maxx - $minx) * 1.35;
+    float $y = ($maxy - $miny) * 1.35; 
+    float $z = ($maxz - $minz) * 1.35; 
+    $booled = `polyBoolOp $temp $argString -o testBool -op 2` ;
+    $triAngulated = `polyTriangulate $booled`;
 } 
 $new = `polyCube -w $x -h $y -d $z -sx 1 -sy 1 -sz 1 -ax 0 1 0 -cuv 4 -ch 1`;
 
