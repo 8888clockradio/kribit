@@ -1,12 +1,46 @@
-polyNormal -nm 4
+/*window -t "Inverse" -w 250 -h 100 myWin;
+	columnLayout -adj true;
+		duplicate -inputConnections -parentOnly 
+		string $bob = `polyNormal -nm 4`;
+		button -l "Harrawss" -c ("findNode " + $bob);
+showWindow myWin;*/
+
+
+global proc getCurveData(string $tnode, float $step, vector $data[]) {
+    int     $count = size($data);
+    string  $part;
+    float   $pos[];
+    int     $spans = `getAttr ($tnode + ".spans")`;
+    for($i = 0.0;$i <= 1.0;$i = $i + $step) {
+        $pos = `pointOnCurve -pr ($i * $spans) -p $tnode`;
+        $data[$count] = <<$pos[0], $pos[1], $pos[2]>>;
+        $count++;
+        }
+    }
+vector $data[];
+getCurveData("curve1", 0.005, $data);
+for($i = 0; $i < size($data); $i++) {
+    vector $pos = $data[$i];
+    print($pos.x + " " + $pos.y + " " + $pos.z + "\n");
+    }
+
+
+//polyNormal -nm 4
 
 
  //This script snaps a vertex to the closest vertex on a reference mesh. 
  //written by Ben Bathen March 11, 2006
  //www.benbathen.com
 
+//string $roots[] = `ls -assemblies`;
+//string $sel[] = ls -sl;
 
-string $sel[] = ls -sl;
+scriptJob -e $
+ "print " +
+  $1
+
+scriptJob -e `ls $roots`
+
 for ( $each in $sel )
 {
 float $minX = getAttr ( $each + ".boundingBoxMinX" );
