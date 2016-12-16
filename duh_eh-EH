@@ -2,6 +2,8 @@ global proc procWithOptionalArgs( string $argString ) {
 string $temp[];
 $temp = `polyNormal -nm 4 $argString`;
 $output = `polyTriangulate -ch 1 -name $temp`;
+
+polyCube -subdivisionsX 48 -subdivivionsY 48 -width `$output
 };
 
 /*window -t "Inverse" -w 250 -h 100 myWin;

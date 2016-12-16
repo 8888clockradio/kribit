@@ -1,0 +1,90 @@
+
+import pymel.core as pm
+import math
+
+def CreateLocatorBottomCornerVerts():
+
+def getBottomCorner(list):
+val = 0
+if len(list)>1:
+for i in range(0,len(list)):
+pm.select(list[i],r=True)
+pos = pm.xform(q=True,a=True,ws = True, t = True)
+if i == 0:
+minY = pos[1]
+else:
+if minY>pos[1]:
+minY = pos[1]
+val = i
+return list[val]
+
+tmp = pm.ls (sl = 1)
+verts = pm.polyListComponentConversion (tmp, tv=True)
+pm.select(verts,r=True)
+verts = pm.ls(sl=True,fl=True)
+cnrVerts = []
+for i in range(0,len(verts)):
+pm.select(verts[i],r=True)
+pm.runtime.ConvertSelectionToEdges()
+edges = pm.ls(sl=True,fl=True)
+if len(edges) == 3:
+cnrVerts.append(verts[i])
+pm.select(cnrVerts,r=True)
+
+upperLeft = []
+lowerLeft = []
+upperRight = []
+lowerRight = []
+
+pm.select(tmp,r=True)
+boundingBox = pm.polyEvaluate(boundingBox=True)
+xMaxBb = boundingBox[0][1]
+xMinBb = boundingBox[0][0]
+zMaxBb = boundingBox[2][1]
+zMinBb = boundingBox[2][0]
+
+for i in range(0,len(cnrVerts)):
+pm.select(cnrVerts[i],r=True)
+pos = pm.xform(q=True,a=True,ws = True, t = True)
+pos[1] = 0
+
+cnr = []
+cnr.append([xMinBb - pos[0],zMaxBb - pos[2]])#lowerLeft
+cnr.append([xMinBb - pos[0],zMinBb - pos[2]])#upperLeft
+cnr.append([xMaxBb - pos[0],zMaxBb - pos[2]])#lowerRight
+cnr.append([xMaxBb - pos[0],zMinBb - pos[2]])#upperRight
+
+val = 0
+for j in range(0,4):
+tmpMag = math.sqrt(cnr[j][0]*cnr[j][0]+cnr[j][1]*cnr[j][1])
+
+if j == 0:
+mag = tmpMag
+else:
+if mag > tmpMag:
+mag = tmpMag
+val = j
+
+if val == 0:
+lowerLeft.append(cnrVerts[i])
+elif val == 1:
+upperLeft.append(cnrVerts[i])
+elif val == 2:
+lowerRight.append(cnrVerts[i])
+elif val == 3:
+upperRight.append(cnrVerts[i])
+
+final=[]
+final.append(getBottomCorner(lowerLeft))
+final.append(getBottomCorner(upperLeft))
+final.append(getBottomCorner(lowerRight))
+final.append(getBottomCorner(upperRight))
+
+for i in range(0,len(final)):
+pm.select(final[i],r=True)
+pos = pm.xform(q=True,a=True,ws = True, t = True)
+pm.general.spaceLocator(a=True,position = pos)
+
+pm.select(tmp,r=True)
+
+CreateLocatorBottomCornerVerts()
