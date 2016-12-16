@@ -28,9 +28,6 @@ for($i = 0; $i < size($data); $i++) {
 //polyNormal -nm 4
 
 
- //This script snaps a vertex to the closest vertex on a reference mesh. 
- //written by Ben Bathen March 11, 2006
- //www.benbathen.com
 
 //string $roots[] = `ls -assemblies`;
 //string $sel[] = ls -sl;
