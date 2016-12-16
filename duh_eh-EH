@@ -1,10 +1,7 @@
 //so basically, you can define your procs like this:
 global proc procWithOptionalArgs( string $argString ) {
 string $temp[];
-$temp = `getCurveData $argString arg1`;
-}
-
-polyNormal -nm 4
+$temp = `polyNormal -nm 4 $argString`;
 }
 
 /*window -t "Inverse" -w 250 -h 100 myWin;
