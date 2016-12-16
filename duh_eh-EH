@@ -1,3 +1,12 @@
+//so basically, you can define your procs like this:
+global proc procWithOptionalArgs( string $argString ) {
+string $temp[];
+$temp = `getCurveData $argString arg1`;
+}
+
+polyNormal -nm 4
+}
+
 /*window -t "Inverse" -w 250 -h 100 myWin;
 	columnLayout -adj true;
 		duplicate -inputConnections -parentOnly 
@@ -6,14 +15,14 @@
 showWindow myWin;*/
 
 
-global proc string[] zooListFlags( string $flagStr ) {
+global proc string[] partialCacoon( string $flagStr ) {
 string $manipStr = $flagStr;
 string $flagTokens[];
 string $flagNames[];
 int $n=0; //overflow control
 //replace any negative number signs with ? so we can tokenize the option string into individual flags
 while( `match "-[0-9]+" $manipStr` != "" && $n<0xffffffg ) {
-$reuterNet = `polyNormal $1 -nm 4`;
+$reuterNet = `polyNormal $args -nm 4`;
 }
 
 global proc getCurveData(string $tnode, float $step, vector $data[]) {
@@ -35,7 +44,7 @@ for($i = 0; $i < size($data); $i++) {
     }
 
 
-//polyNormal -nm 4
+
 
 
  //This script snaps a vertex to the closest vertex on a reference mesh. 
